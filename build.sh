@@ -1,23 +1,42 @@
 #!/bin/bash
 set -e
 
-# Instalar Flutter
 echo "Installing Flutter..."
-curl -L https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.19.6-stable.tar.xz -o flutter.tar.xz
+
+# Criar diretório para Flutter
+mkdir -p /tmp/flutter
+cd /tmp/flutter
+
+# Baixar Flutter stable release (pre-built)
+FLUTTER_VERSION="3.19.6"
+echo "Downloading Flutter $FLUTTER_VERSION..."
+curl -L https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz -o flutter.tar.xz
+
+echo "Extracting Flutter..."
 tar xf flutter.tar.xz
-export PATH="$PWD/flutter/bin:$PATH"
 
-# Verificar Flutter
-flutter doctor --android-licenses || true
-flutter doctor
+# Configurar PATH
+export PATH="/tmp/flutter/flutter/bin:$PATH"
+export FLUTTER_HOME="/tmp/flutter/flutter"
 
-# Entrar na pasta do app
+# Desabilitar analytics e crash reporting
+flutter config --no-analytics
+flutter config --no-crash-reporting
+
+# Aceitar licenças
+echo "y" | flutter doctor --android-licenses || true
+
+echo "Checking Flutter installation..."
+flutter --version
+
+# Voltar para o diretório do projeto
+cd /vercel/path0
+
+echo "Installing Flutter dependencies..."
 cd flutter_app
-
-# Instalar dependências
 flutter pub get
 
-# Build web
+echo "Building web release..."
 flutter build web --release
 
-echo "Build completed successfully"
+echo "Build completed successfully!"
