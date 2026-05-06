@@ -1,0 +1,17 @@
+.dart_tool/
+.buildlog/
+.packages
+.pub/
+.idea/
+.vscode/
+**/build/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Pods/
+**/.dart_tool/
+**/.pub-cache/
+**/flutter_export_environment.sh
+**/Generated.xcconfig
+**/flutter_application.*
+**/.dart_tool
+**/pubspec.lock
