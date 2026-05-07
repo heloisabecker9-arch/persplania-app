@@ -18,14 +18,16 @@ tar xf flutter.tar.xz
 # Configurar PATH
 export PATH="/tmp/flutter/flutter/bin:$PATH"
 export FLUTTER_HOME="/tmp/flutter/flutter"
+export FLUTTER_ROOT="/tmp/flutter/flutter"
+
+# Permitir safe directory para Flutter no ambiente root
+git config --global --add safe.directory /tmp/flutter/flutter
 
 # Desabilitar analytics e crash reporting
 flutter config --no-analytics
 flutter config --no-crash-reporting
 
-# Aceitar licenças
-echo "y" | flutter doctor --android-licenses || true
-
+# Verificar instalação mínima do Flutter
 echo "Checking Flutter installation..."
 flutter --version
 
